@@ -1,0 +1,98 @@
+import navesEspaciales.*
+
+describe "test de naves" {
+	//naves principales
+	const naveBaliza = new NavesBaliza()
+	const naveDePasajeros = new NavesDePasajeros(cantidadDePasajerosQuePuedeLlevar = 40)
+	const naveDeCombate = new NavesDeCombate()
+	
+	//naveBaliza
+	method initialize() {
+		naveBaliza.prepararViaje()
+		naveDePasajeros.prepararViaje()
+		naveDeCombate.prepararViaje()
+	}
+	
+	//naveBaliza
+	test "la naveBaliza prepara el viaje y las balizas = verde y su direccion = 0" {
+		assert.equals("verde", naveBaliza.baliza())
+		assert.equals(0, naveBaliza.direccion())
+	}
+	
+	test "la naveBaliza no esta tranquila" {
+		assert.notThat(naveBaliza.estaTranquila())
+	}
+	
+	test "cuando la naveBaliza recibe amenaza, sus balizas = rojo y la direccion = 10" {
+		naveBaliza.recibirAmenaza()
+		assert.equals("rojo", naveBaliza.baliza())
+		assert.equals(10, naveBaliza.direccion())
+	}
+	
+	test "la naveBaliza no esta relajada" {
+		assert.notThat(naveBaliza.estaRelajada())
+	}
+	
+	//naveDePasajeros
+	test "la naveDePasajeros contiene 160 municiones de comida" {
+		assert.equals(160, naveDePasajeros.comidas())
+	}
+	
+	test "la naveDePasajeros contiene 240 municiones de bebidas" {
+		assert.equals(240, naveDePasajeros.bebidas())
+	}
+	
+	test "la direccion de la naveDePasajeros = 1" {
+		assert.equals(1, naveDePasajeros.direccion())
+	}
+	
+	test "cuando la naveDePasajeros recibe una amenaza su velocidad = 10000" {
+		naveDePasajeros.recibirAmenaza()
+		assert.equals(10000, naveDePasajeros.velocidad())
+	}
+	
+	test "cuando la naveDePasajeros recibe una amenaza su comida = 100 y sus bebidas = 160" {
+		naveDePasajeros.recibirAmenaza()
+		assert.equals(160, naveDePasajeros.bebidas())
+		assert.equals(120, naveDePasajeros.comidas())
+	}
+	
+	test "la naveDePasajeros no esta relajada" {
+		assert.notThat(naveDePasajeros.estaRelajada())
+	}
+	
+	//naveDeCombate
+	test "la naveDeCombate esta en modo visible" {
+		assert.notThat(naveDeCombate.estaInvisible())
+	}
+	
+	test "la naveDeCombate tiene los misiles replegados" {
+		assert.notThat(naveDeCombate.misilesDesplegados())
+	}
+	
+	test "la naveDeCombate tiene una velocidad = 20000" {
+		assert.equals(20000, naveDeCombate.velocidad())
+	}
+	
+	test "la naveDeCombate emitio el mensaje Saliendo en misión" {
+		assert.equals(["Saliendo en misión"], naveDeCombate.mensajesEmitidos())
+	}
+	
+	test "la naveDeCombate no esta tranquila" {
+		assert.notThat(naveDeCombate.estaTranquila())
+	}
+	
+	test "la naveDeCombate recibe amenaza y su direccion = 2" {
+		naveDeCombate.recibirAmenaza()
+		assert.equals(2, naveDeCombate.direccion())
+	}
+	
+	test "la naveDeCombate recibe amenza y emite el mensaje Amenaza recibida" {
+		naveDeCombate.recibirAmenaza()
+		assert.equals(["Saliendo en misión", "Amenaza recibida"], naveDeCombate.mensajesEmitidos())
+	}
+	
+	test "la naveDeCombate no esta relajada" {
+		assert.notThat(naveDeCombate.estaRelajada())
+	}
+}

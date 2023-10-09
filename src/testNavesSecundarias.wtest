@@ -1,0 +1,37 @@
+import navesEspaciales.*
+
+describe "test de naves" {
+	//otras naves
+	const naveHospital = new NaveHospital(cantidadDePasajerosQuePuedeLlevar = 70)
+	const naveDeCombateSigilosa = new NaveDeCombateSigilosa()
+	
+	method initialize() {
+		naveHospital.prepararViaje()
+		naveDeCombateSigilosa.prepararViaje()
+	}
+	
+	//naveHospital
+	test "la naveHospital no esta tranquila" {
+		assert.notThat(naveHospital.estaTranquila())
+	}
+	
+	test "la naveHospital cuando recibe una amenaza tienePreparadoLosQuirofanos" {
+		naveHospital.recibirAmenaza()
+		assert.that(naveHospital.tienePreparadoLosQuirofanos())
+	}
+	
+	//naveDeCombateSigilosa
+	test "la naveDeCombateSigilosa no esta tranquila" {
+		assert.notThat(naveDeCombateSigilosa.estaTranquila())
+	}
+	
+	test "la naveDeCombateSigilosa cuando recibe una amenaza desplega los misiles" {
+		naveDeCombateSigilosa.recibirAmenaza()
+		assert.that(naveDeCombateSigilosa.misilesDesplegados())
+	}
+	
+	test "la naveDeCombateSigilosa cuando recibe una amenaza se pone invisible" {
+		naveDeCombateSigilosa.recibirAmenaza()
+		assert.that(naveDeCombateSigilosa.estaInvisible())
+	}
+}
